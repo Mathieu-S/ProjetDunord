@@ -1,0 +1,132 @@
+body {
+    margin: 20px;
+}
+
+section {
+    margin-top: 70px;
+}
+.titre {
+    text-align: center;
+}
+
+.button-menu {
+    padding: 0px;
+}
+.button-primary {
+    text-align: center;
+}
+
+.container {
+    margin-top: 5%;
+    text-align: center;
+}
+@media screen and (max-width: 600px) {
+    .container {
+        width: 250px;
+        text-align: center;
+    }
+}
+@media screen and (min-width: 600px) and (max-width: 1240px) {
+    section nav a .button-menu{
+        font-size : 8px;
+    }
+}
+.button-ajout-user {
+    float: right;
+}
+
+.traveaux {
+    text-align: center;
+    padding: 2%;
+}
+
+.delete {
+    background-color: #e74c3c;
+    border-color: #e74c3c;
+    background-image: url(images/cancel.png);
+    background-size: 30%;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: white;
+}
+
+.delete:hover {
+    background-color: #c0392b;
+    border-color: #c0392b;
+    color: white;
+}
+
+.btn_annuler {
+    background-color: #e74c3c;
+    border-color: #e74c3c;
+    color: white;
+    margin-top: -25px;
+    display: block;
+}
+
+.btn_annuler:hover {
+    background-color: #c0392b;
+    border-color: #c0392b;
+    color: white;
+}
+
+.fix_link {
+    color: white;
+    text-decoration-line: unset;
+    width: 50px;
+}
+
+.ajout-panne {
+    margin-left: 20%;
+    margin-right: 20%;
+}
+
+.login-form {
+    margin-top: 20px;
+}
+
+.R {
+    color: green
+}
+
+.EC {
+    color: orange;
+}
+
+.NR {
+    color: red;
+}
+
+.mrg-l {
+    margin-left: 10px;
+}
+
+.popup {
+    background: rgba(255, 255, 255, 0.8);
+    position: fixed;
+    display: none;
+    z-index: 5000;
+    height: 100%;
+    width: 100%;
+    left: 0;
+    top: 0;
+}
+.popup > div {
+    border-radius: 4px;
+    position: fixed;
+    background: #FFFFFF;
+    box-shadow: 0px 0px 12px #666666;
+    padding: 30px 15px;
+    /* Width of popup can be changed */
+    width: 80%;
+    max-width: 600px;
+    z-index: 5001;
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    left: 50%;
+    top: 50%;
+    text-align: center;
+}

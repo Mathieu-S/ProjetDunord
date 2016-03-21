@@ -1,10 +1,17 @@
 <?php
 
+/**
+ * @return PDO
+ * Permet la connexion à la base de donnée
+ */
 function connectionDb() {
 	$db = new PDO("mysql:host=localhost;dbname=synx;charset=utf8", "root", "");
 	return $db;
 }
 
+/**
+ * Permet de se connecter et d'initialiser une session
+ */
 function connection() {
 	$db = connectionDb();
 	$query = $db->prepare("SELECT * FROM utilisateur WHERE login = :login AND pass = :pass");
@@ -30,12 +37,20 @@ function connection() {
     }
 }
 
+/**
+ * @return string
+ * Prend la date actuelle et la formate en JJ/MM/AAAA
+ */
 function traitementDate() {
     $datePhp = getdate();
-    $dateTraite = $datePhp['year']."-".$datePhp['mon']."-".$datePhp['mday'];
+    $dateTraite = $datePhp['mday']."-".$datePhp['mon']."-".$datePhp['year'];
     return $dateTraite;
 }
 
+//TODO Retourner un tableau et non du HTML
+/**
+ * Récupère les incidents et les formates dans un tableau HTML
+ */
 function getIncidents() {
 	$db=connectionDb();
 	$query = $db->prepare("SELECT * FROM `incidents`");
@@ -79,6 +94,9 @@ function getIncidents() {
     }
 }
 
+/**
+ * Ajoute un incident à la base de données
+ */
 function addIncident() {
     $db = connectionDb();;
     $dateIncident = traitementDate();
@@ -100,6 +118,9 @@ function addIncident() {
     }
 }
 
+/**
+ * Modifie le status de l'incident
+ */
 function modfIncident() {
     $db = connectionDb();;
     $dateRes = traitementDate();
@@ -119,6 +140,10 @@ function modfIncident() {
     header("location:index_admin.php");
 }
 
+//TODO Retourner un tableau et non du HTML
+/**
+ * Récupère la liste des utilisateur et les affiche dans un tableau HTML
+ */
 function getUtilisateur() {
     $db=connectionDb();
     $query = $db->prepare("SELECT * FROM `utilisateur`");
@@ -143,6 +168,11 @@ function getUtilisateur() {
     }
 }
 
+/**
+ * @param $id
+ * @return mixed
+ * Récupère les information d'un utilisateur par son ID
+ */
 function getUtilisateurById($id) {
     $db=connectionDb();
     $query = $db->prepare("SELECT * FROM `utilisateur` WHERE `id`= :id");
@@ -151,6 +181,9 @@ function getUtilisateurById($id) {
     return $query->fetch();
 }
 
+/**
+ * Ajoute un utilisateur à la base de données
+ */
 function addUtilisateur() {
     $db=connectionDb();
     $query = $db->prepare("INSERT INTO `utilisateur`(`login`, `pass`, `nom`, `numPoste`, `service`, `isAdmin`) VALUES (:login, :pass, :nom, :numPoste, :service, :isAdmin)");
@@ -164,6 +197,9 @@ function addUtilisateur() {
     header("location:gestion_utilisateur.php");
 }
 
+/**
+ * Modifie les informations de l'utilisateur
+ */
 function modfUtilisateur() {
     $db=connectionDb();
     if ($_POST['mdp'] != "NONE") {
@@ -189,6 +225,10 @@ function modfUtilisateur() {
     header("location:gestion_utilisateur.php");
 }
 
+/**
+ * @param $id
+ * Supprime l'utilisateur par son ID
+ */
 function delUtilisateur($id) {
     $db=connectionDb();
     $query = $db->prepare("DELETE FROM `utilisateur` WHERE `id` = :id");
@@ -197,6 +237,10 @@ function delUtilisateur($id) {
     header("location:gestion_utilisateur.php");
 }
 
+//TODO Retourner un tableau et non du HTML
+/**
+ * Récupère la liste du matériel et l'affiche dans un tableau HTML
+ */
 function getMateriel() {
     $db=connectionDb();
     $query = $db->prepare("SELECT * FROM `materiel`");
@@ -220,6 +264,11 @@ function getMateriel() {
     }
 }
 
+/**
+ * @param $tag
+ * @return mixed
+ * Récupère les information d'un matériel par son service TAG
+ */
 function getMaterielByTag($tag) {
     $db=connectionDb();
     $query = $db->prepare("SELECT * FROM `materiel` WHERE `tag`= :tag");
@@ -228,6 +277,9 @@ function getMaterielByTag($tag) {
     return $query->fetch();
 }
 
+/**
+ * Ajoute un matériel à la base de données
+ */
 function addMateriel() {
     $db=connectionDb();
     $multyUser = 0;
@@ -243,6 +295,9 @@ function addMateriel() {
     header("location:gestion_materiel.php");
 }
 
+/**
+ * Modifie les information d'un matériel. Impossible de modifier le service TAG
+ */
 function modfMateriel(){
     $db=connectionDb();
     $multyUser = 0;
@@ -262,6 +317,10 @@ function modfMateriel(){
     header("location:gestion_materiel.php");
 }
 
+/**
+ * @param $tag
+ * Supprime le matériel par son service TAG
+ */
 function delMateriel($tag) {
     $db=connectionDb();
     $query = $db->prepare("DELETE FROM `materiel` WHERE `tag`= :tag");
